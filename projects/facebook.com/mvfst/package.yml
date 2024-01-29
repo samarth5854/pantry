@@ -19,6 +19,7 @@ build:
     linux:
       gnu.org/gcc: '*'
       gnu.org/make: '*'
+      kernel.org/linux-headers: '*' # find XDP_USE_NEED_WAKEUP
   script:
     - cmake -S . -B _build $CMAKE_ARGS
     - cmake --build _build
@@ -63,7 +64,7 @@ test:
           ((current_port++))
       done
     - ./echo --mode server --host 127.0.0.1 --port $current_port &
-    -  sleep 15
+    - sleep 15
     - ./echo --mode client --host 127.0.0.1 --port $current_port &
     - sleep 15
     - killall echo || true
